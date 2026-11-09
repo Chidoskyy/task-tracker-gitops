@@ -1,0 +1,27 @@
+# application.yaml: tells Argo CD what to deploy from Git, and where
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: task-tracker-dev                  # the name shown in Argo CD
+  namespace: argocd                       # where Applications live
+  finalizers:                             # delete its objects with it
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Chidoskyy/task-tracker-gitops.git
+    targetRevision: main                  # follow the main branch
+    path: task-tracker                    # the folder with the Helm chart
+    helm:
+      releaseName: dev                    # objects are named dev-web
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc   # this cluster
+    namespace: tt-gitops                     # where Task Tracker runs
+  syncPolicy:
+    automated:
+      prune: true                         # delete objects removed from Git
+      selfHeal: true                      # undo changes made by hand
+    syncOptions:
+      - CreateNamespace=true              # create tt-gitops if it does not exist

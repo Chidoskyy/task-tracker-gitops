@@ -1,5 +1,5 @@
 # values.yaml: the default settings, used for the dev environment
-replicaCount: 1
+replicaCount: 2
 image:
   repository: task-tracker
   tag: "1.4.0"

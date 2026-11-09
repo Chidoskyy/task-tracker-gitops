@@ -1,0 +1,6 @@
+# Chart.yaml: the name and version of this Helm chart
+apiVersion: v2
+name: task-tracker
+description: Task Tracker web application
+version: 0.1.0          # the version of the chart itself
+appVersion: "1.4.0"     # the version of the app it deploys

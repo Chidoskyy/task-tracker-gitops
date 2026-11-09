@@ -1,0 +1,12 @@
+# service.yaml: a Service for this release, on the port chosen in the values
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-web
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ .Release.Name }}-web
+  ports:
+    - port: {{ .Values.servicePort }}
+      targetPort: 8080
